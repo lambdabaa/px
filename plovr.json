@@ -1,0 +1,24 @@
+{
+    "checks": {
+        "checkRegExp": "ERROR"
+      , "checkTypes": "ERROR"
+      , "checkVars": "ERROR"
+      , "deprecated": "ERROR"
+      , "fileoverviewTags": "ERROR"
+      , "invalidCasts": "ERROR"
+      , "missingProperties": "ERROR"
+      , "nonStandardJsDocs": "ERROR"
+      , "undefinedVars": "ERROR"
+    }
+  , "debug": true
+  , "experimental-compiler-options": { "generateExports": true }
+  , "externs": [
+        "js/externs/console.js"
+    ]
+  , "id": "px"
+  , "inputs": [ "js/app.js" ]
+  , "jsdoc-html-output-path": "doc.html"
+  , "level": "VERBOSE"
+  , "mode": "ADVANCED"
+  , "paths": [ "js" ]
+}
