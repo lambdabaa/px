@@ -33,6 +33,7 @@ px.Grid.HEIGHT = 30;
 /**
  * @param {number} row
  * @param {number} col
+ * @return {px.Entity}
  */
 px.Grid.prototype.at = function(row, col) {
   return this.contents_[row][col];

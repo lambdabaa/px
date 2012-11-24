@@ -51,6 +51,6 @@ function log_build_results {
 
 setup
 build_less
-# build_closure
+build_closure
 cleanup
 echo "Done"

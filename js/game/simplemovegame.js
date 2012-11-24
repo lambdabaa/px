@@ -51,7 +51,7 @@ px.game.SimpleMoveGame.prototype.onUp = function(e) {
   var col = this.activeEntity_.col;
 
   if (this.grid_.at(row, col - 1) == null) {
-    this.grid_.set(row, col, null); 
+    this.grid_.set(row, col, null);
     col -= 1;
     this.activeEntity_.col = col;
     this.grid_.set(row, col, this.activeEntity_);

@@ -1,7 +1,7 @@
 
 goog.provide('px.AppleKey');
-goog.provide('px.KeyboardHandler');
 goog.provide('px.KeyEvent');
+goog.provide('px.KeyboardHandler');
 
 goog.require('goog.events');
 
@@ -60,17 +60,17 @@ px.KeyboardHandler.prototype.onKeyDown_ = function(e) {
 
 /** @enum {string} */
 px.KeyEvent = {
-    LEFT: 'left'
-  , UP: 'up'
-  , RIGHT: 'right'
-  , DOWN: 'down'
+  LEFT: 'left',
+  UP: 'up',
+  RIGHT: 'right',
+  DOWN: 'down'
 };
 
 
 /** @enum {number} */
 px.AppleKey = {
-    LEFT: 37
-  , UP: 38
-  , RIGHT: 39
-  , DOWN: 40
+  LEFT: 37,
+  UP: 38,
+  RIGHT: 39,
+  DOWN: 40
 };

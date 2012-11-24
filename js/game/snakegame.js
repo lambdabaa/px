@@ -83,10 +83,10 @@ px.game.SnakeGame.prototype.onDown = function(e) {
 };
 
 
+/** @private */
 px.game.SnakeGame.prototype.move_ = function() {
   var row = this.activeEntity_.row;
   var col = this.activeEntity_.col;
-  console.log(this.direction_);
   switch (this.direction_) {
     case px.game.SnakeGame.Direction.LEFT:
       col += px.Grid.WIDTH;
@@ -103,11 +103,6 @@ px.game.SnakeGame.prototype.move_ = function() {
       row = (row + 1) % px.Grid.HEIGHT;
       break;
   }
-
-  console.log('From...');
-  console.log(this.positionToString_(this.activeEntity_.row, this.activeEntity_.col));
-  console.log('To...');
-  console.log(this.positionToString_(row, col));
 
   var drop = false;
   if (this.grid_.at(row, col) == null) {
@@ -179,8 +174,8 @@ px.game.SnakeGame.prototype.positionToString_ = function(row, col) {
 
 /** @enum {string} */
 px.game.SnakeGame.Direction = {
-    LEFT: 'left'
-  , UP: 'up'
-  , RIGHT: 'right'
-  , DOWN: 'down'
+  LEFT: 'left',
+  UP: 'up',
+  RIGHT: 'right',
+  DOWN: 'down'
 };

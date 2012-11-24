@@ -2,7 +2,7 @@
 goog.provide('px.Canvas');
 
 goog.require('goog.ui.Component');
-goog.require('px.Grid')
+goog.require('px.Grid');
 
 
 
@@ -19,11 +19,13 @@ px.Canvas = function(grid) {
 goog.inherits(px.Canvas, goog.ui.Component);
 
 
+/** @inheritDoc */
 px.Canvas.prototype.createDom = function() {
   this.decorateInternal(this.dom_.createElement('canvas'));
 };
 
 
+/** @inheritDoc */
 px.Canvas.prototype.enterDocument = function() {
   goog.dom.classes.add(this.element_, 'canvas');
   var canvas = this;
@@ -33,6 +35,7 @@ px.Canvas.prototype.enterDocument = function() {
 };
 
 
+/** Repaint the canvas */
 px.Canvas.prototype.draw = function() {
   var context = this.element_.getContext('2d');
 
