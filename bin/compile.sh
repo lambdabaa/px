@@ -31,14 +31,14 @@ function build_closure {
 
 
 function setup {
-  echo "Set up build environment..."
+  echo "Initialize build environment..."
   mkdir -p $PUBLIC
   mkdir -p $BUILD
 }
 
 
 function cleanup {
-  echo "Remove build artifacts..."
+  echo "Discard build artifacts..."
   rm -rf $BUILD
 }
 
@@ -51,6 +51,6 @@ function log_build_results {
 
 setup
 build_less
-build_closure
+# build_closure
 cleanup
 echo "Done"
