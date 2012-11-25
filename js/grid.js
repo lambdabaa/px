@@ -46,6 +46,5 @@ px.Grid.prototype.at = function(row, col) {
  * @param {px.Entity} entity
  */
 px.Grid.prototype.set = function(row, col, entity) {
-  console.log('Setting (' + row + ', ' + col + ') to ' + entity);
   this.contents_[row][col] = entity;
 };

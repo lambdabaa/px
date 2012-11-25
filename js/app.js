@@ -36,7 +36,7 @@ px.App = function() {
   this.canvas_ = new px.Canvas(this.grid_);
   var element = goog.dom.createDom('div');
   goog.dom.classes.add(element, 'canvas-container');
-  goog.dom.appendChild(document.body, element);
+  goog.dom.appendChild(goog.dom.getElementByClass('container'), element);
   this.canvas_.render(element);
 
   /**
