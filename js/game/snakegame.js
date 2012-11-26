@@ -3,8 +3,10 @@ goog.provide('px.game.SnakeGame');
 goog.provide('px.game.SnakeGame.Direction');
 
 goog.require('goog.events.Event');
+goog.require('goog.soy');
 goog.require('px.Entity');
 goog.require('px.Grid');
+goog.require('px.game.snakegameinfo');
 
 
 /**
@@ -12,8 +14,6 @@ goog.require('px.Grid');
  * @param {px.Grid} grid
  */
 px.game.SnakeGame = function(grid) {
-  /** Models */
-
   /**
    * @type {px.Grid}
    * @private
@@ -43,6 +43,24 @@ px.game.SnakeGame = function(grid) {
    * @private
    */
   this.moveHistory_ = [];
+
+  /**
+   * @type {number}
+   * @private
+   */
+  this.highScore_ = 0;
+  if (typeof(Storage) !== 'undefined') {
+    var game = this;
+    window.onbeforeunload = function() {
+      localStorage['highScore_'] = game.highScore_;
+    };
+
+    if (localStorage['highScore_'] && !isNaN(localStorage['highScore_'])) {
+      this.highScore_ = localStorage['highScore_'];
+    }
+  }
+
+  this.renderScore_();
 
   this.dropFood_();
 
@@ -123,10 +141,13 @@ px.game.SnakeGame.prototype.move_ = function() {
   if (this.grid_.at(row, col) == null) {
     food = false;
   } else if (this.grid_.at(row, col).rgb == px.game.SnakeGame.SNAKE_COLOR) {
-    // TODO(gareth)
+    this.highScore_ = Math.max(this.highScore_, this.num_ - 1);
+    this.renderScore_();
     return;
   } else if (this.grid_.at(row, col).rgb == px.game.SnakeGame.FOOD_COLOR) {
     this.num_ += 1;
+    this.renderScore_();
+
     food = true;
     this.dropFood_();
   }
@@ -159,7 +180,7 @@ px.game.SnakeGame.prototype.move_ = function() {
   this.activeEntity_.row = row;
   this.activeEntity_.col = col;
   for (var k = 0; k < this.num_; k++) {
-    this.grid_.set(row, col, this.activeEntity_)
+    this.grid_.set(row, col, this.activeEntity_);
     var move = this.moveHistory_[k];
     switch (this.oppositeOf_(move)) {
       case px.game.SnakeGame.Direction.LEFT:
@@ -251,6 +272,25 @@ px.game.SnakeGame.prototype.oppositeOf_ = function(dir) {
   }
 
   return result;
+};
+
+
+/**
+ * @private
+ */
+px.game.SnakeGame.prototype.renderScore_ = function() {
+  var element = goog.dom.getElementByClass('snakegameinfo');
+  if (!element) {
+    element = goog.dom.createDom('div');
+    goog.dom.classes.add(element, 'snakegameinfo');
+    goog.dom.appendChild(
+        goog.dom.getElementByClass('canvas-container'), element);
+  }
+
+  goog.soy.renderElement(element, px.game.snakegameinfo.main, {
+    score: this.num_ - 1,
+    highScore: this.highScore_
+  });
 };
 
 

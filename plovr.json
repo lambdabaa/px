@@ -14,6 +14,7 @@
   , "experimental-compiler-options": { "generateExports": true }
   , "externs": [
         "js/externs/console.js"
+      , "js/externs/localstorage.js"
     ]
   , "id": "px"
   , "inputs": [ "js/app.js" ]

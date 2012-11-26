@@ -17,17 +17,11 @@ goog.require('px.game.SnakeGame');
  * @export
  */
 px.App = function() {
-  /** Models */
-
   /**
    * @type {px.Grid}
    * @private
    */
   this.grid_ = new px.Grid();
-
-  this.game_ = new px.game.SnakeGame(this.grid_);
-
-  /** Views */
 
   /**
    * @type {px.Canvas}
@@ -38,6 +32,12 @@ px.App = function() {
   goog.dom.classes.add(element, 'canvas-container');
   goog.dom.appendChild(goog.dom.getElementByClass('container'), element);
   this.canvas_.render(element);
+
+  /**
+   * @type {px.game.SnakeGame}
+   * @private
+   */
+  this.game_ = new px.game.SnakeGame(this.grid_);
 
   /**
    * @type {px.KeyboardHandler}
