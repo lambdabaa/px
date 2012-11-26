@@ -44,6 +44,8 @@ px.App = function() {
    * @private
    */
   this.keyboardHandler_ = px.KeyboardHandler.getInstance();
+  goog.events.listen(this.keyboardHandler_, px.KeyEvent.SPACE,
+      goog.bind(this.game_.onSpace, this.game_));
   goog.events.listen(this.keyboardHandler_, px.KeyEvent.LEFT,
       goog.bind(this.game_.onLeft, this.game_));
   goog.events.listen(this.keyboardHandler_, px.KeyEvent.UP,

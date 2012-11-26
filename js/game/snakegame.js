@@ -91,9 +91,25 @@ px.game.SnakeGame.prototype.initGame_ = function() {
 /**
  * @param {goog.events.Event} e
  */
+px.game.SnakeGame.prototype.onSpace = function(e) {
+  if (this.isPaused_) {
+    this.onPlayButtonClick_(e);
+  } else {
+    this.onPauseButtonClick_(e);
+  }
+};
+
+
+/**
+ * @param {goog.events.Event} e
+ */
 px.game.SnakeGame.prototype.onLeft = function(e) {
   if (this.direction_ != px.game.SnakeGame.Direction.RIGHT) {
     this.direction_ = px.game.SnakeGame.Direction.LEFT;
+  }
+
+  if (this.isPaused_) {
+    this.onPlayButtonClick_(null);
   }
 };
 
@@ -105,6 +121,10 @@ px.game.SnakeGame.prototype.onUp = function(e) {
   if (this.direction_ != px.game.SnakeGame.Direction.DOWN) {
     this.direction_ = px.game.SnakeGame.Direction.UP;
   }
+
+  if (this.isPaused_) {
+    this.onPlayButtonClick_(null);
+  }
 };
 
 
@@ -115,6 +135,10 @@ px.game.SnakeGame.prototype.onRight = function(e) {
   if (this.direction_ != px.game.SnakeGame.Direction.LEFT) {
     this.direction_ = px.game.SnakeGame.Direction.RIGHT;
   }
+
+  if (this.isPaused_) {
+    this.onPlayButtonClick_(null);
+  }
 };
 
 
@@ -124,6 +148,10 @@ px.game.SnakeGame.prototype.onRight = function(e) {
 px.game.SnakeGame.prototype.onDown = function(e) {
   if (this.direction_ != px.game.SnakeGame.Direction.UP) {
     this.direction_ = px.game.SnakeGame.Direction.DOWN;
+  }
+
+  if (this.isPaused_) {
+    this.onPlayButtonClick_(null);
   }
 };
 

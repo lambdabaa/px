@@ -30,6 +30,7 @@ goog.inherits(px.KeyboardHandler, goog.events.EventTarget);
  * @private
  */
 px.KeyboardHandler.prototype.onKeyUp_ = function(e) {
+  // TODO(gareth): Any reason for this?
 };
 
 
@@ -40,6 +41,9 @@ px.KeyboardHandler.prototype.onKeyUp_ = function(e) {
 px.KeyboardHandler.prototype.onKeyDown_ = function(e) {
   var eventType = null;
   switch (e.keyCode) {
+    case this.key_.SPACE:
+      eventType = px.KeyEvent.SPACE;
+      break;
     case this.key_.LEFT:
       eventType = px.KeyEvent.LEFT;
       break;
@@ -60,6 +64,7 @@ px.KeyboardHandler.prototype.onKeyDown_ = function(e) {
 
 /** @enum {string} */
 px.KeyEvent = {
+  SPACE: 'space',
   LEFT: 'left',
   UP: 'up',
   RIGHT: 'right',
@@ -69,6 +74,7 @@ px.KeyEvent = {
 
 /** @enum {number} */
 px.AppleKey = {
+  SPACE: 32,
   LEFT: 37,
   UP: 38,
   RIGHT: 39,
