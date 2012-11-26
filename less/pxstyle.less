@@ -7,13 +7,17 @@ body {
 }
 
 .canvas-container {
-  margin: 20px auto;
+  @media only screen and (min-width : 980px) {
+    margin-top: 70px;
+  }
+  margin-left: auto;
+  margin-right: auto;
   width: 480px;
 }
 
 .canvas {
-  width: 480px;
-  height: 360px;
+  width: 440px;
+  height: 330px;
 }
 
 .forkme {
@@ -21,4 +25,5 @@ body {
   top: 0;
   right: 0;
   border: 0;
+  z-index: 1031;
 }
