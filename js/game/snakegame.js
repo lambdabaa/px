@@ -387,6 +387,10 @@ px.game.SnakeGame.prototype.onPauseButtonClick_ = function(e) {
  */
 px.game.SnakeGame.prototype.onRestartButtonClick_ = function(e) {
   this.isPaused_ = true;
+  if (typeof(Storage) !== 'undefined') {
+    localStorage['highScore_'] = game.highScore_;
+  }
+
   var game = this;
   setTimeout(function() {
     game.initGame_();
