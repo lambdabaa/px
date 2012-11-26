@@ -2,6 +2,7 @@
 goog.provide('px.game.SnakeGame');
 goog.provide('px.game.SnakeGame.Direction');
 
+goog.require('goog.events');
 goog.require('goog.events.Event');
 goog.require('goog.soy');
 goog.require('px.Entity');
@@ -19,6 +20,21 @@ px.game.SnakeGame = function(grid) {
    * @private
    */
   this.grid_ = grid;
+
+  this.initGame_();
+};
+
+
+/** @const */
+px.game.SnakeGame.FOOD_COLOR = 'rgb(255, 0, 0)';
+
+/** @const */
+px.game.SnakeGame.SNAKE_COLOR = 'rgb(255, 255, 255)';
+
+
+/** @private */
+px.game.SnakeGame.prototype.initGame_ = function() {
+  this.grid_.resetContents();
 
   /**
    * @type {px.Entity}
@@ -45,6 +61,12 @@ px.game.SnakeGame = function(grid) {
   this.moveHistory_ = [];
 
   /**
+   * @type {boolean}
+   * @private
+   */
+  this.isPaused_ = false;
+
+  /**
    * @type {number}
    * @private
    */
@@ -61,18 +83,9 @@ px.game.SnakeGame = function(grid) {
   }
 
   this.renderScore_();
-
   this.dropFood_();
-
   this.move_();
 };
-
-
-/** @const */
-px.game.SnakeGame.FOOD_COLOR = 'rgb(255, 0, 0)';
-
-/** @const */
-px.game.SnakeGame.SNAKE_COLOR = 'rgb(255, 255, 255)';
 
 
 /**
@@ -200,10 +213,12 @@ px.game.SnakeGame.prototype.move_ = function() {
     }
   }
 
-  var game = this;
-  setTimeout(function() {
-    game.move_();
-  }, Math.max(40, 100 - (this.num_ * 5)));
+  if (!this.isPaused_) {
+    var game = this;
+    setTimeout(function() {
+      game.move_();
+    }, Math.max(40, 100 - (this.num_ * 5)));
+  }
 };
 
 
@@ -291,6 +306,63 @@ px.game.SnakeGame.prototype.renderScore_ = function() {
     score: this.num_ - 1,
     highScore: this.highScore_
   });
+
+  // Start listening for play, pause, and restart clicks again
+  goog.events.unlisten(
+      goog.dom.getElementByClass('btn-play'), goog.events.EventType.CLICK,
+      this.onPlayButtonClick_, false, this);
+  goog.events.listen(
+      goog.dom.getElementByClass('btn-play'), goog.events.EventType.CLICK,
+      this.onPlayButtonClick_, false, this);
+  goog.events.unlisten(
+      goog.dom.getElementByClass('btn-pause'), goog.events.EventType.CLICK,
+      this.onPauseButtonClick_, false, this);
+  goog.events.listen(
+      goog.dom.getElementByClass('btn-pause'), goog.events.EventType.CLICK,
+      this.onPauseButtonClick_, false, this);
+  goog.events.unlisten(
+      goog.dom.getElementByClass('btn-restart'), goog.events.EventType.CLICK,
+      this.onRestartButtonClick_, false, this);
+  goog.events.listen(
+      goog.dom.getElementByClass('btn-restart'), goog.events.EventType.CLICK,
+      this.onRestartButtonClick_, false, this);
+};
+
+
+/**
+ * @param {goog.events.Event} e
+ * @private
+ */
+px.game.SnakeGame.prototype.onPlayButtonClick_ = function(e) {
+  if (this.isPaused_) {
+    this.isPaused_ = false;
+    var game = this;
+    setTimeout(function() {
+      game.move_();
+    }, Math.max(40, 100 - (this.num_ * 5)));
+  }
+};
+
+
+/**
+ * @param {goog.events.Event} e
+ * @private
+ */
+px.game.SnakeGame.prototype.onPauseButtonClick_ = function(e) {
+  this.isPaused_ = true;
+};
+
+
+/**
+ * @param {goog.events.Event} e
+ * @private
+ */
+px.game.SnakeGame.prototype.onRestartButtonClick_ = function(e) {
+  this.isPaused_ = true;
+  var game = this;
+  setTimeout(function() {
+    game.initGame_();
+  }, 500);
 };
 
 

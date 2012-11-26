@@ -6,9 +6,13 @@
  * @param highScore
  */
 {template .main}
-  <div class="snake-game-info">
-    <span class="label label-inverse">Score: {$score}</span>
-    &emsp;
-    <span class="label label-success">High Score: {$highScore}</span>
-  </div>
+  <span class="btn btn-success btn-play">Play</span>
+  &emsp;
+  <span class="btn btn-warning btn-pause">Pause</span>
+  &emsp;
+  <span class="btn btn-danger btn-restart">Restart</span>
+  &emsp;
+  <span class="label label-inverse">Score: {$score}</span>
+  &emsp;
+  <span class="label label-info">High Score: {$highScore}</span>
 {/template}

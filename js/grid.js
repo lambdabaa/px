@@ -13,13 +13,7 @@ px.Grid = function() {
    */
   this.contents_ = [];
 
-  for (var row = 0; row < px.Grid.HEIGHT; row++) {
-    this.contents_[row] = [];
-
-    for (var col = 0; col < px.Grid.WIDTH; col++) {
-      this.contents_[row][col] = null;
-    }
-  }
+  this.resetContents();
 };
 
 
@@ -28,6 +22,18 @@ px.Grid.WIDTH = 60;
 
 /** @const */
 px.Grid.HEIGHT = 30;
+
+
+/** Make a new grid */
+px.Grid.prototype.resetContents = function() {
+  for (var row = 0; row < px.Grid.HEIGHT; row++) {
+    this.contents_[row] = [];
+
+    for (var col = 0; col < px.Grid.WIDTH; col++) {
+      this.contents_[row][col] = null;
+    }
+  }
+}
 
 
 /**
