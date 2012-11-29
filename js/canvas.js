@@ -43,7 +43,7 @@ px.Canvas.prototype.draw = function() {
     for (var col = 0; col < px.Grid.WIDTH; col++) {
       var entity = this.grid_.at(row, col);
       context.fillStyle = entity ? entity.rgb : 'rgb(0, 0, 0)';
-      context.fillRect(5 * col, 5 * row, 5 * (col + 1), 5 * (row + 1));
+      context.fillRect(5 * col, 5 * row, 5, 5);
     }
   }
 };
