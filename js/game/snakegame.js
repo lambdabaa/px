@@ -5,6 +5,7 @@ goog.provide('px.game.SnakeGame.Direction');
 goog.require('goog.events');
 goog.require('goog.events.Event');
 goog.require('goog.soy');
+goog.require('goog.userAgent');
 goog.require('px.Entity');
 goog.require('px.Grid');
 goog.require('px.game.snakegameinfo');
@@ -15,11 +16,23 @@ goog.require('px.game.snakegameinfo');
  * @param {px.Grid} grid
  */
 px.game.SnakeGame = function(grid) {
+  /** 
+   * @type {number}
+   * @private
+   */
+  this.loadTime_ = new Date().getTime();
+
   /**
    * @type {px.Grid}
    * @private
    */
   this.grid_ = grid;
+
+  /**
+   * @type {number}
+   * @private
+   */
+  this.gamesPlayed_ = 0;
 
   this.initGame_();
 };
@@ -35,6 +48,8 @@ px.game.SnakeGame.SNAKE_COLOR = 'rgb(255, 255, 255)';
 /** @private */
 px.game.SnakeGame.prototype.initGame_ = function() {
   this.grid_.resetContents();
+
+  this.gamesPlayed_ += 1;
 
   /**
    * @type {px.Entity}
@@ -73,8 +88,24 @@ px.game.SnakeGame.prototype.initGame_ = function() {
   this.highScore_ = 0;
   if (typeof(Storage) !== 'undefined') {
     var game = this;
-    window.onbeforeunload = function() {
+    window.onbeforeunload = function(e) {
       localStorage['highScore_'] = game.highScore_;
+      var leaveTime = new Date().getTime();
+      mixpanel.track('snake', {
+        'duration': leaveTime - game.loadTime_,
+        'gamesPlayed': game.gamesPlayed_,
+        'highScore': game.highScore_,
+        'loadTime': game.loadTime_,
+        'leaveTime': leaveTime,
+        'userAgent': goog.userAgent.getUserAgentString()
+      });
+
+      e = e || window.event;
+      if (e) {
+        e.returnValue = 'So ' + game.highScore_ + ' is the best you can do eh?';
+      }
+
+      return 'So ' + game.highScore_ + ' is the best you can do eh?';
     };
 
     if (localStorage['highScore_'] && !isNaN(localStorage['highScore_'])) {
