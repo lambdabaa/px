@@ -15,6 +15,7 @@
   , "externs": [
         "js/externs/console.js"
       , "js/externs/localstorage.js"
+      , "js/externs/mixpanel.js"
     ]
   , "id": "px"
   , "inputs": [ "js/app.js" ]

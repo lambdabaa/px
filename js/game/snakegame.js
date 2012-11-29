@@ -92,7 +92,7 @@ px.game.SnakeGame.prototype.initGame_ = function() {
       localStorage['highScore_'] = game.highScore_;
       var leaveTime = new Date().getTime();
       mixpanel.track('snake', {
-        'duration': leaveTime - game.loadTime_,
+        'duration': (leaveTime - game.loadTime_) / 1000,
         'gamesPlayed': game.gamesPlayed_,
         'highScore': game.highScore_,
         'loadTime': game.loadTime_,
