@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
 
-BUILD="build"
-PUBLIC="public"
+BUILD="./build"
+LESS="./less"
+PUBLIC="./public"
+THIRD_PARTY="./third_party"
 
 LESS_SRC="$BUILD/style.less"
 LESS_DST="$PUBLIC/style.css"
 LESS_INCLUDE="less:third_party/bootstrap/less"
 
-PLOVR="bin/plovr-eba786b34df9.jar"
-PLOVR_CONF="plovr.json"
-PLOVR_DST="$PUBLIC/px.js"
+PLOVR="$THIRD_PARTY/plovr-eba786b34df9.jar"
+PLOVR_CONFIG="plovr.json"
 
 
 function build_less {
@@ -19,14 +20,12 @@ function build_less {
   files="$files third_party/bootstrap/less/responsive.less"
   cat $files > $LESS_SRC
   lessc --strict-imports --verbose --yui-compress -O2 --include-path=$LESS_INCLUDE $LESS_SRC $LESS_DST
-  log_build_results $LESS_DST
 }
 
 
 function build_closure {
   echo "Compile closure to javascript..."
-  java -jar $PLOVR build $PLOVR_CONF > $PLOVR_DST
-  log_build_results $PLOVR_DST
+  java -jar $PLOVR build $PLOVR_CONFIG
 }
 
 
@@ -40,12 +39,6 @@ function setup {
 function cleanup {
   echo "Discard build artifacts..."
   rm -rf $BUILD
-}
-
-
-function log_build_results {
-  results="`du -h $1` built by `whoami` `date`"
-  echo $results
 }
 
 

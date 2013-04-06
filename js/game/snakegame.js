@@ -99,13 +99,6 @@ px.game.SnakeGame.prototype.initGame_ = function() {
         'leaveTime': leaveTime,
         'userAgent': goog.userAgent.getUserAgentString()
       });
-
-      e = e || window.event;
-      if (e) {
-        e.returnValue = 'So ' + game.highScore_ + ' is the best you can do eh?';
-      }
-
-      return 'So ' + game.highScore_ + ' is the best you can do eh?';
     };
 
     if (localStorage['highScore_'] && !isNaN(localStorage['highScore_'])) {

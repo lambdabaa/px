@@ -10,7 +10,6 @@
       , "nonStandardJsDocs": "ERROR"
       , "undefinedVars": "ERROR"
     }
-  , "debug": true
   , "experimental-compiler-options": { "generateExports": true }
   , "externs": [
         "js/externs/console.js"
@@ -19,8 +18,10 @@
     ]
   , "id": "px"
   , "inputs": [ "js/app.js" ]
-  , "jsdoc-html-output-path": "doc.html"
-  , "level": "VERBOSE"
+  , "output-file": "public/px.js"
+  , "output-wrapper": "(function(){%output%})();px.App.getInstance();"
   , "mode": "ADVANCED"
   , "paths": [ "js" ]
+  , "property-map-output-file": "public/properties.yaml"
+  , "variable-map-output-file": "public/variables.yaml"
 }
